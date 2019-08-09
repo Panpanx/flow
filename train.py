@@ -26,10 +26,10 @@ parser.add_argument('--train-root', metavar='DIR', default='/net/drunk/debezenac
                     help='path to training dataset')
 parser.add_argument('--test-root', metavar='DIR', default='/net/drunk/debezenac/CMEMS_DATA/datasets/np/test',
                     help='path to testing dataset')
-parser.add_argument('--train-zones', type=int, nargs='+', action='store', dest='train_zones', default=range(1, 30),
-                    help='geographical zones to train on. To train on all zones, add range(1, 30)')
-parser.add_argument('--test-zones', type=int, nargs='+', action='store', dest='test_zones', default=range(1, 30),
-                    help='geographical zones to test on. To test on all zones, add range(1, 30)')
+parser.add_argument('--train-zones', type=int, nargs='+', action='store', dest='train_zones', default=range(1, 41),
+                    help='geographical zones to train on. To train on all zones, add range(1, 43)')
+parser.add_argument('--test-zones', type=int, nargs='+', action='store', dest='test_zones', default=range(41, 43),
+                    help='geographical zones to test on. To test on all zones, add range(1, 43)')
 parser.add_argument('--rescale', default='norm', type=str, 
                     help='you can choose between minmax and norm')
 parser.add_argument('-j', '--workers', default=4, type=int, metavar='N',
@@ -72,6 +72,7 @@ parser.add_argument('--no-cuda',  action='store_true',
 args = parser.parse_args()
 
 viz = visdom.Visdom(env=args.env)
+
 
 def main():
     global args, viz
@@ -118,7 +119,6 @@ def main():
         'valid': val_loader,
         'test': test_loader,
     }
-
 
     estimator = estimators.ConvDeconvEstimator(input_channels=args.seq_len,
                                                upsample_mode=args.upsample)

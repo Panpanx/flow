@@ -26,7 +26,7 @@ def soft_deconv(in_planes, out_planes, upsample_mode='bilinear'):
     return nn.Sequential(
         nn.Upsample(scale_factor=2, mode=upsample_mode),
         nn.Conv2d(in_planes, out_planes, kernel_size=3,
-                  stride=1, padding=1, bias=False), # TURN OFF BIAS??
+                  stride=1, padding=1, bias=False),  # TURN OFF BIAS??
         nn.ReLU(inplace=True)
         # nn.LeakyReLU(0.1, inplace=True)
     )
@@ -44,7 +44,7 @@ def soft_conv_transpose(in_planes, out_planes, kernel_size=3, stride=2, padding=
     return nn.Sequential(
         nn.Upsample(scale_factor=stride, mode='bilinear'),
         nn.Conv2d(in_planes, out_planes, kernel_size=kernel_size,
-                  stride=1, padding=1, bias=False)
+                  stride=1, padding=padding, bias=bias)
     )
 
 
