@@ -93,6 +93,7 @@ def plot_results(x, nsample=1, res=1.5, cmap='viridis'):
                     plot_one(im, title, cmap=cmap, )
     plt.tight_layout()
     plt.subplots_adjust(wspace=0.001, hspace=0.1)
+
     return plt.gcf()
 
 

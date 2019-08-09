@@ -149,7 +149,7 @@ def main():
     for epoch in range(1, args.epochs + 1):
 
         results = {}
-        for split, dl in splits.items():
+        for split, data_loader in splits.items():
                     
             meters = AverageMeters()
 
@@ -158,9 +158,9 @@ def main():
             else:
                 estimator.eval(), warp.eval()
 
-            for i, (input, targets) in enumerate(dl):
+            for i, (inputs, targets) in enumerate(data_loader):
 
-                _x.resize_(input.size()).copy_(input)
+                _x.resize_(inputs.size()).copy_(inputs)
                 _ys.resize_(targets.size()).copy_(targets)
                 _ys = _ys.transpose(0, 1).unsqueeze(2)
                 x, ys = Variable(_x), Variable(_ys)
@@ -172,7 +172,7 @@ def main():
 
                 ims = []
                 ws = []
-                last_im = x[:, -1].unsqueeze(1)
+                # last_im = x[:, -1].unsqueeze(1)
                 for y in ys:
 
                     w = estimator(x)
@@ -213,7 +213,7 @@ def main():
             if not args.no_plot:
                 images = [
                     ('target', {
-                        'in': input.transpose(0, 1).numpy(),
+                        'in': inputs.transpose(0, 1).numpy(),
                         'out': ys.cpu().data.numpy()
                         }
                      ),
@@ -226,7 +226,7 @@ def main():
                         }
                      ),
                 ]
-                plt = plot.from_matplotlib(plot.plot_images(images))
+                plt = plot.from_matplotlib(plot.plot_results(images))
                 viz.image(plt.transpose(2, 0, 1),
                           opts=dict(title='{}, epoch {}'.format(split.upper(), epoch)),
                           win=list(splits).index(split),
