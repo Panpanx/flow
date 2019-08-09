@@ -138,7 +138,6 @@ def main():
                                  betas=(args.momentum, args.beta),
                                  weight_decay=args.weight_decay)
 
-
     _x, _ys = torch.Tensor(), torch.Tensor()
 
     if not args.no_cuda:
@@ -217,15 +216,15 @@ def main():
                         'in': input.transpose(0, 1).numpy(),
                         'out': ys.cpu().data.numpy()
                         }
-                    ),
+                     ),
                     ('im', {
                         'out': ims
                         }
-                    ),
+                     ),
                     ('ws', {
                         'out': ws
                         }
-                    ),
+                     ),
                 ]
                 plt = plot.from_matplotlib(plot.plot_images(images))
                 viz.image(plt.transpose(2, 0, 1),
@@ -250,17 +249,13 @@ def main():
             x = np.array([[epoch]*len(results)])
             if epoch == 1:
                 win = viz.line(X=x, Y=y,
-                               opts=dict(showlegend=True,
-                                    legend=legend,
-                                    title=metric))
+                               opts=dict(showlegend=True, legend=legend, title=metric))
                 viz_wins[metric] = win
             else:
                 viz.line(X=x, Y=y,
-                         opts=dict(showlegend=True,
-                            legend=legend,
-                            title=metric),
-                         win=viz_wins[metric],
-                         update='append')
+                         opts=dict(showlegend=True, legend=legend, title=metric),
+                         win=viz_wins[metric], update='append')
+
 
 if __name__ == '__main__':
     main()

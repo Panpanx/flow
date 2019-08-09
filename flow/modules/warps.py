@@ -8,7 +8,7 @@ __all__ = ['BilinearWarpingScheme',
 
 
 class BilinearWarpingScheme(nn.Module):
-    def __init__(self, padding_mode='zeros'):
+    def __init__(self, padding_mode='reflection'):
         super(BilinearWarpingScheme, self).__init__()
         self.grid = DenseGridGen()
         self.padding_mode = padding_mode
@@ -18,7 +18,7 @@ class BilinearWarpingScheme(nn.Module):
     
 
 class GaussianWarpingScheme(nn.Module):
-    def __init__(self, padding_mode='zeros', F=3, std=0.25):
+    def __init__(self, padding_mode='reflection', F=3, std=0.25):
         super(GaussianWarpingScheme, self).__init__()
         self.grid = DenseGridGen()
         self.F = F
